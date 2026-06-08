@@ -5,16 +5,18 @@ import {
   ArrowRight,
   Search,
   Filter,
-  Globe2,
   Database,
   Download,
   ShieldCheck,
-  Sparkles,
   TrendingUp,
   Building2,
   Users,
   Zap,
   CheckCircle2,
+  Terminal,
+  Crosshair,
+  Radar,
+  Plus,
 } from "lucide-react";
 
 import { SiteHeader } from "@/components/site/Header";
@@ -25,15 +27,15 @@ import { Button } from "@/components/ui/button";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "ClientMine — Find restaurants & cafes missing a website" },
+      { title: "ClientMine — Hunt restaurants & cafes with no website" },
       {
         name: "description",
         content:
-          "ClientMine helps freelancers discover restaurants and cafes with no website. Search by city, export verified leads, send personalized outreach in seconds.",
+          "ClientMine is a tactical lead-finder for freelance web devs. Scan any city, surface businesses missing a website, export verified leads in 60 seconds.",
       },
       { name: "keywords", content: "freelance web design leads, restaurants without website, cafe leads, local business leads, lead generation for freelancers" },
-      { property: "og:title", content: "ClientMine — Restaurant & cafe leads with no website" },
-      { property: "og:description", content: "Discover local businesses missing digital visibility. Export-ready leads in seconds." },
+      { property: "og:title", content: "ClientMine — Lead-finder for freelance web devs" },
+      { property: "og:description", content: "Tactical prospecting tool. Scan, filter, export. Zero noise." },
       { property: "og:url", content: "/" },
     ],
     links: [{ rel: "canonical", href: "/" }],
@@ -57,100 +59,125 @@ export const Route = createFileRoute("/")({
 
 function Index() {
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background text-foreground">
       <SiteHeader />
       <main>
         <Hero />
-        <LogoStrip />
+        <Marquee />
         <Features />
         <WhyWebsites />
         <HowItWorks />
         <Benefits />
         <Stats />
         <FAQ />
+        <CTA />
       </main>
       <SiteFooter />
     </div>
   );
 }
 
+/* -------------------- HERO -------------------- */
 function Hero() {
   return (
     <section className="relative overflow-hidden border-b hairline">
-      {/* Pattern-only background — no gradients */}
-      <div aria-hidden className="absolute inset-0 cross-bg opacity-90" />
-      <div aria-hidden className="absolute inset-0 plus-bg opacity-60" />
-      <div aria-hidden className="absolute inset-0 diag-bg opacity-70" />
-      <div aria-hidden className="absolute inset-0 grain" />
-      {/* Soft vignette using mask so edges fade without coloured gradients */}
+      {/* Layered tactical background */}
+      <div aria-hidden className="absolute inset-0 blueprint-bg opacity-60" />
+      <div aria-hidden className="absolute inset-0 scanlines opacity-40" />
+      <div aria-hidden className="absolute inset-0 noise-bg" />
+      {/* Lime glow blob */}
       <div
         aria-hidden
-        className="absolute inset-0 bg-background"
-        style={{
-          maskImage:
-            "radial-gradient(ellipse 70% 60% at 50% 45%, transparent 40%, black 100%)",
-          WebkitMaskImage:
-            "radial-gradient(ellipse 70% 60% at 50% 45%, transparent 40%, black 100%)",
-        }}
+        className="pointer-events-none absolute left-1/2 top-1/3 h-[520px] w-[520px] -translate-x-1/2 rounded-full blur-[140px] opacity-30 animate-drift-1"
+        style={{ background: "radial-gradient(circle, oklch(0.88 0.22 128 / 0.55), transparent 60%)" }}
       />
-      <div aria-hidden className="pointer-events-none absolute inset-x-0 top-0 h-px bg-hairline" />
-      <div aria-hidden className="pointer-events-none absolute inset-x-0 bottom-0 h-px bg-hairline" />
+      {/* Corner tickmarks */}
+      <CornerTicks />
+
       <div className="container-prose relative py-24 md:py-36">
         <motion.div
-          initial={{ opacity: 0, y: 12 }}
+          initial={{ opacity: 0, y: 14 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-          className="mx-auto max-w-3xl text-center"
+          transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+          className="mx-auto max-w-4xl text-center"
         >
-          <div className="mb-8 inline-flex items-center gap-2 rounded-full border hairline bg-surface/90 backdrop-blur px-3.5 py-1.5 text-[11px] font-medium tracking-wide text-muted-foreground shadow-card">
-            <Sparkles className="size-3 text-accent-emerald" />
-            Built for freelancers who hate cold prospecting
+          <div className="mb-8 inline-flex items-center gap-2 rounded-full border hairline bg-surface/80 px-3.5 py-1.5 font-mono text-[11px] uppercase tracking-widest text-muted-foreground backdrop-blur shadow-card">
+            <span className="size-1.5 rounded-full bg-accent-lime pulse-dot" />
+            v1.0 · Live target acquisition
           </div>
 
-          <h1 className="text-display text-balance text-[48px] leading-[0.95] tracking-[-0.035em] sm:text-[68px] md:text-[88px]">
-            Mine your next client
-            <br className="hidden sm:block" />
-            <span className="italic font-normal text-muted-foreground/90">before</span>{" "}
+          <h1 className="text-display text-balance text-[52px] leading-[0.92] tracking-[-0.045em] sm:text-[78px] md:text-[104px]">
+            Hunt clients
+            <br />
+            <span className="relative inline-block">
+              <span className="relative z-10">before</span>
+              <span aria-hidden className="absolute inset-x-0 bottom-1 h-3 -skew-x-6 bg-accent-lime/70 md:bottom-2 md:h-4" />
+            </span>{" "}
+            <span className="font-mono text-[0.7em] font-medium italic text-muted-foreground">/</span>{" "}
             anyone else does.
           </h1>
 
-          <p className="mx-auto mt-8 max-w-[34rem] text-pretty text-[15.5px] leading-[1.65] text-muted-foreground sm:text-[17px]">
-            ClientMine surfaces restaurants and cafes that still don't have a
-            website — verified, ready to pitch, and one click from your CRM.
-            Built for freelancers shipping web work this week.
+          <p className="mx-auto mt-8 max-w-[36rem] text-pretty text-[16px] leading-[1.65] text-muted-foreground sm:text-[18px]">
+            ClientMine is a tactical lead-finder for freelance devs. Scan any city,
+            surface restaurants & cafes <span className="text-foreground">still missing a website</span>,
+            export clean data. Zero noise. Zero fabricated emails.
           </p>
 
-          <div className="mt-9 flex flex-col items-center justify-center gap-3 sm:flex-row">
-            <Button asChild size="lg" className="group h-12 px-6 text-[15px] shadow-card-lg">
+          <div className="mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row">
+            <Button
+              asChild
+              size="lg"
+              className="group h-12 rounded-md bg-accent-lime px-6 font-mono text-[13px] font-semibold uppercase tracking-widest text-accent-lime-foreground shadow-lime hover:bg-accent-lime/90"
+            >
               <Link to="/leads">
-                Start Finding Leads
-                <ArrowRight className="ml-1 transition-transform duration-300 group-hover:translate-x-0.5" />
+                <Crosshair className="size-4" />
+                Start Hunting
+                <ArrowRight className="ml-0.5 transition-transform duration-300 group-hover:translate-x-0.5" />
               </Link>
             </Button>
             <a
               href="#how"
-              className="inline-flex h-12 items-center justify-center rounded-md px-5 text-[15px] text-muted-foreground transition-colors hover:text-foreground"
+              className="inline-flex h-12 items-center justify-center gap-2 rounded-md border hairline bg-surface/60 px-5 font-mono text-[12px] uppercase tracking-widest text-muted-foreground backdrop-blur transition-colors hover:bg-surface-muted hover:text-foreground"
             >
-              See how it works
+              <Terminal className="size-3.5" />
+              View ops manual
             </a>
           </div>
 
-          <div className="mt-10 flex flex-wrap items-center justify-center gap-x-7 gap-y-3 text-xs text-muted-foreground">
-            <span className="inline-flex items-center gap-1.5"><CheckCircle2 className="size-3.5 text-accent-emerald" /> No signup required</span>
-            <span className="inline-flex items-center gap-1.5"><CheckCircle2 className="size-3.5 text-accent-emerald" /> Export to CSV &amp; Excel</span>
-            <span className="inline-flex items-center gap-1.5"><CheckCircle2 className="size-3.5 text-accent-emerald" /> Personalized outreach messages</span>
+          <div className="mt-10 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 font-mono text-[11px] uppercase tracking-widest text-muted-foreground">
+            <span className="inline-flex items-center gap-1.5"><CheckCircle2 className="size-3 text-accent-lime" /> No signup</span>
+            <span className="opacity-30">·</span>
+            <span className="inline-flex items-center gap-1.5"><CheckCircle2 className="size-3 text-accent-lime" /> CSV / Excel export</span>
+            <span className="opacity-30">·</span>
+            <span className="inline-flex items-center gap-1.5"><CheckCircle2 className="size-3 text-accent-lime" /> Outreach-ready</span>
           </div>
         </motion.div>
 
         <Reveal delay={0.2} className="relative mx-auto mt-16 max-w-5xl">
-          <div className="overflow-hidden rounded-2xl border hairline bg-surface shadow-card-lg">
-            <div className="flex items-center gap-1.5 border-b hairline px-4 py-3">
-              <span className="size-2.5 rounded-full bg-foreground/10" />
-              <span className="size-2.5 rounded-full bg-foreground/10" />
-              <span className="size-2.5 rounded-full bg-foreground/10" />
-              <span className="ml-3 font-mono text-[11px] text-muted-foreground">clientmine.app/leads</span>
+          <div className="group relative overflow-hidden rounded-xl border hairline bg-surface shadow-card-lg">
+            {/* Scan line animation */}
+            <div aria-hidden className="pointer-events-none absolute inset-x-0 top-0 z-10 h-24 opacity-0 transition-opacity group-hover:opacity-100">
+              <div className="h-px w-full bg-gradient-to-r from-transparent via-accent-lime to-transparent animate-scan" />
+            </div>
+            <div className="flex items-center justify-between border-b hairline bg-surface-elev px-4 py-2.5">
+              <div className="flex items-center gap-2">
+                <span className="size-2.5 rounded-full bg-foreground/15" />
+                <span className="size-2.5 rounded-full bg-foreground/15" />
+                <span className="size-2.5 rounded-full bg-foreground/15" />
+              </div>
+              <span className="font-mono text-[11px] tracking-wider text-muted-foreground">
+                clientmine.app/leads
+              </span>
+              <span className="inline-flex items-center gap-1.5 font-mono text-[10px] uppercase tracking-widest text-accent-lime">
+                <span className="size-1.5 rounded-full bg-accent-lime pulse-dot" />
+                LIVE
+              </span>
             </div>
             <DashboardPreview />
+          </div>
+          {/* Floating spec badges */}
+          <div className="pointer-events-none absolute -left-4 top-1/3 hidden rotate-[-90deg] origin-left font-mono text-[10px] uppercase tracking-widest text-muted-foreground/60 md:block">
+            FIG.01 · TARGETING UI
           </div>
         </Reveal>
       </div>
@@ -158,49 +185,75 @@ function Hero() {
   );
 }
 
+function CornerTicks() {
+  return (
+    <>
+      {[
+        "left-6 top-6",
+        "right-6 top-6 rotate-90",
+        "left-6 bottom-6 -rotate-90",
+        "right-6 bottom-6 rotate-180",
+      ].map((pos) => (
+        <Plus
+          key={pos}
+          aria-hidden
+          className={`pointer-events-none absolute size-3 text-muted-foreground/40 ${pos}`}
+        />
+      ))}
+    </>
+  );
+}
+
 function DashboardPreview() {
   const rows = [
-    { name: "Trattoria Bellini", city: "Florence, IT", rating: 4.7, status: "NO WEBSITE" },
-    { name: "Café du Marché", city: "Lyon, FR", rating: 4.6, status: "NO WEBSITE" },
-    { name: "Sakura Ramen Bar", city: "Osaka, JP", rating: 4.8, status: "NO WEBSITE" },
-    { name: "Olive & Vine", city: "Athens, GR", rating: 4.5, status: "NO WEBSITE" },
-    { name: "El Rincón Tapas", city: "Sevilla, ES", rating: 4.6, status: "NO WEBSITE" },
+    { name: "Trattoria Bellini", city: "Florence, IT", rating: 4.7 },
+    { name: "Café du Marché", city: "Lyon, FR", rating: 4.6 },
+    { name: "Sakura Ramen Bar", city: "Osaka, JP", rating: 4.8 },
+    { name: "Olive & Vine", city: "Athens, GR", rating: 4.5 },
+    { name: "El Rincón Tapas", city: "Sevilla, ES", rating: 4.6 },
   ];
   return (
     <div className="grid grid-cols-12 gap-0">
-      <div className="col-span-3 hidden border-r hairline bg-surface-muted/60 p-4 md:block">
-        <div className="text-eyebrow mb-3">Search</div>
-        <div className="space-y-2 text-[13px]">
-          <div className="rounded-md border hairline bg-surface px-3 py-2">Florence</div>
-          <div className="rounded-md border hairline bg-surface px-3 py-2 text-muted-foreground">Italy (optional)</div>
-          <div className="rounded-md border hairline bg-surface px-3 py-2">Both</div>
-          <div className="rounded-md border hairline bg-surface px-3 py-2">100 results</div>
+      <div className="col-span-3 hidden border-r hairline bg-surface-elev/60 p-4 md:block">
+        <div className="text-eyebrow mb-3">Query</div>
+        <div className="space-y-2 font-mono text-[12px]">
+          <div className="rounded-md border hairline bg-surface px-3 py-2 text-foreground">Florence</div>
+          <div className="rounded-md border hairline bg-surface px-3 py-2 text-muted-foreground">Italy</div>
+          <div className="rounded-md border hairline bg-surface px-3 py-2">cafe + restaurant</div>
+          <div className="rounded-md border hairline bg-surface px-3 py-2">limit: 100</div>
         </div>
-        <Button size="sm" className="mt-3 h-9 w-full">Generate Leads</Button>
+        <Button size="sm" className="mt-3 h-9 w-full rounded-md bg-accent-lime font-mono text-[11px] uppercase tracking-widest text-accent-lime-foreground hover:bg-accent-lime/90">
+          Execute scan
+        </Button>
       </div>
       <div className="col-span-12 md:col-span-9">
-        <div className="flex items-center justify-between border-b hairline px-5 py-3 text-[12px] text-muted-foreground">
-          <span>Showing 87 leads with no website · scanned 142 businesses</span>
-          <span className="inline-flex items-center gap-1"><Download className="size-3.5" /> Export</span>
+        <div className="flex items-center justify-between border-b hairline bg-surface-muted/30 px-5 py-2.5 font-mono text-[11px] uppercase tracking-widest text-muted-foreground">
+          <span>
+            <span className="text-accent-lime">87</span> targets · 142 scanned
+          </span>
+          <span className="inline-flex items-center gap-1.5">
+            <Download className="size-3" /> Export
+          </span>
         </div>
         <table className="w-full text-[13px]">
-          <thead className="text-left text-[11px] uppercase tracking-wider text-muted-foreground">
+          <thead className="text-left font-mono text-[10px] uppercase tracking-widest text-muted-foreground">
             <tr className="border-b hairline">
-              <th className="px-5 py-2.5 font-medium">Business</th>
+              <th className="px-5 py-2.5 font-medium">Target</th>
               <th className="px-5 py-2.5 font-medium">Location</th>
-              <th className="px-5 py-2.5 font-medium">Rating</th>
-              <th className="px-5 py-2.5 font-medium">Website</th>
+              <th className="px-5 py-2.5 font-medium">★</th>
+              <th className="px-5 py-2.5 font-medium">Status</th>
             </tr>
           </thead>
           <tbody>
             {rows.map((r) => (
-              <tr key={r.name} className="border-b hairline last:border-0 transition-colors hover:bg-surface-muted/60">
-                <td className="px-5 py-3 font-medium">{r.name}</td>
-                <td className="px-5 py-3 text-muted-foreground">{r.city}</td>
-                <td className="px-5 py-3">{r.rating}</td>
+              <tr key={r.name} className="border-b hairline last:border-0 transition-colors hover:bg-surface-elev/60">
+                <td className="px-5 py-3 font-medium text-foreground">{r.name}</td>
+                <td className="px-5 py-3 font-mono text-[12px] text-muted-foreground">{r.city}</td>
+                <td className="px-5 py-3 font-mono text-[12px] text-foreground">{r.rating}</td>
                 <td className="px-5 py-3">
-                  <span className="inline-flex items-center rounded-full border border-destructive/20 bg-destructive/5 px-2 py-0.5 font-mono text-[10px] tracking-wider text-destructive">
-                    {r.status}
+                  <span className="inline-flex items-center gap-1.5 rounded-md border border-accent-lime/30 bg-accent-lime/10 px-2 py-0.5 font-mono text-[10px] tracking-widest text-accent-lime">
+                    <span className="size-1.5 rounded-full bg-accent-lime" />
+                    NO_SITE
                   </span>
                 </td>
               </tr>
@@ -212,49 +265,84 @@ function DashboardPreview() {
   );
 }
 
-function LogoStrip() {
-  const items = ["Independent Agencies", "Solo Freelancers", "Growth Studios", "Web Shops", "Sales Teams", "Marketers"];
+/* -------------------- MARQUEE -------------------- */
+function Marquee() {
+  const items = [
+    "Solo freelancers",
+    "Indie studios",
+    "Growth hackers",
+    "Web shops",
+    "Local agencies",
+    "Sales teams",
+    "Cold-email pros",
+    "Niche operators",
+  ];
   return (
-    <section className="border-b hairline bg-surface-muted/40">
-      <div className="container-prose flex flex-wrap items-center justify-center gap-x-12 gap-y-4 py-8 text-[13px] uppercase tracking-[0.15em] text-muted-foreground">
-        <span className="text-eyebrow">Built for</span>
-        {items.map((i) => (
-          <span key={i} className="font-medium">{i}</span>
-        ))}
+    <section className="overflow-hidden border-b hairline bg-surface/40 py-5">
+      <div className="relative flex">
+        <div className="flex shrink-0 animate-marquee gap-12 pr-12 font-mono text-[12px] uppercase tracking-[0.2em] text-muted-foreground">
+          {[...items, ...items].map((i, idx) => (
+            <span key={idx} className="inline-flex items-center gap-3 whitespace-nowrap">
+              <span className="size-1 rounded-full bg-accent-lime" />
+              {i}
+            </span>
+          ))}
+        </div>
+        <div className="flex shrink-0 animate-marquee gap-12 pr-12 font-mono text-[12px] uppercase tracking-[0.2em] text-muted-foreground">
+          {[...items, ...items].map((i, idx) => (
+            <span key={`b${idx}`} className="inline-flex items-center gap-3 whitespace-nowrap">
+              <span className="size-1 rounded-full bg-accent-lime" />
+              {i}
+            </span>
+          ))}
+        </div>
       </div>
     </section>
   );
 }
 
+/* -------------------- FEATURES -------------------- */
 function Features() {
   const features = [
-    { icon: Search, title: "Hyper-targeted search", desc: "Filter by city, country, and business type to surface exactly the leads you want — restaurants, cafes, or both." },
-    { icon: Filter, title: "Automatic website filter", desc: "We only show businesses with no website. No noise, no duplicates, no manual cleanup." },
-    { icon: Database, title: "Verified Google data", desc: "Names, ratings, addresses, phone numbers and Maps links sourced directly from Google Places." },
-    { icon: Download, title: "One-click export", desc: "Download clean CSV or Excel files named by city and date — ready for your CRM or outreach tool." },
-    { icon: ShieldCheck, title: "No fabricated data", desc: "We never invent emails. If a public business email isn't available, we say so — your reputation matters." },
-    { icon: Zap, title: "Instant results", desc: "No signup, no waiting. Open the tool, run a search, get leads in under a minute." },
+    { icon: Search, n: "F01", title: "Hyper-targeted search", desc: "Filter by city, country, and business type. Surface only what you want — restaurants, cafes, or both." },
+    { icon: Filter, n: "F02", title: "Automatic site filter", desc: "We only show businesses with no website. No noise, no duplicates, no manual cleanup." },
+    { icon: Database, n: "F03", title: "Verified Google data", desc: "Names, ratings, addresses, phones and Maps links sourced live from Google Places." },
+    { icon: Download, n: "F04", title: "One-click export", desc: "Clean CSV or Excel files, named by city and date — ready for your CRM or outreach tool." },
+    { icon: ShieldCheck, n: "F05", title: "No fabricated data", desc: "We never invent emails. If a public business email isn't available, we say so. Your reputation matters." },
+    { icon: Zap, n: "F06", title: "Instant results", desc: "No signup, no waiting. Open the tool, run a query, get leads in under a minute." },
   ];
   return (
     <section id="features" className="relative overflow-hidden border-b hairline py-24 md:py-32">
-      <div
-        aria-hidden
-        className="pointer-events-none absolute right-[-10%] top-1/3 h-[420px] w-[420px] rounded-full blur-3xl opacity-50"
-        style={{ background: "radial-gradient(circle, oklch(0.82 0.13 160 / 0.30), transparent 60%)" }}
-      />
+      <div aria-hidden className="absolute inset-0 cross-bg opacity-40" />
       <div className="container-prose relative">
         <Reveal>
-          <div className="text-eyebrow">Features</div>
-          <h2 className="text-display mt-4 max-w-2xl text-4xl md:text-5xl">Everything you need to find your next client.</h2>
+          <div className="flex items-end justify-between gap-8">
+            <div>
+              <div className="text-eyebrow">// Capability matrix</div>
+              <h2 className="text-display mt-4 max-w-2xl text-4xl md:text-6xl">
+                Everything you need.
+                <br />
+                <span className="text-muted-foreground">Nothing you don't.</span>
+              </h2>
+            </div>
+            <div className="hidden font-mono text-[11px] uppercase tracking-widest text-muted-foreground md:block">
+              06 / 06 modules
+            </div>
+          </div>
         </Reveal>
-        <div className="mt-14 grid gap-px overflow-hidden rounded-2xl border hairline bg-hairline md:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-14 grid gap-px overflow-hidden rounded-xl border hairline bg-hairline md:grid-cols-2 lg:grid-cols-3">
           {features.map((f, i) => (
             <Reveal key={f.title} delay={i * 0.05}>
-              <div className="group h-full bg-surface p-7 transition-colors hover:bg-surface-muted/60">
-                <div className="mb-5 inline-flex size-9 items-center justify-center rounded-lg border hairline bg-surface-muted text-foreground transition-transform group-hover:-translate-y-0.5">
-                  <f.icon className="size-4" />
+              <div className="group relative h-full bg-surface p-7 transition-colors hover:bg-surface-elev">
+                <div className="flex items-center justify-between">
+                  <div className="inline-flex size-10 items-center justify-center rounded-md border hairline bg-background text-accent-lime transition-transform group-hover:-translate-y-0.5 group-hover:border-accent-lime/40">
+                    <f.icon className="size-4" />
+                  </div>
+                  <span className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground/60">
+                    {f.n}
+                  </span>
                 </div>
-                <h3 className="text-[15px] font-semibold tracking-tight">{f.title}</h3>
+                <h3 className="mt-5 text-[16px] font-semibold tracking-tight">{f.title}</h3>
                 <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{f.desc}</p>
               </div>
             </Reveal>
@@ -265,31 +353,43 @@ function Features() {
   );
 }
 
+/* -------------------- WHY WEBSITES -------------------- */
 function WhyWebsites() {
   const items = [
-    "97% of consumers look up a local business online before visiting.",
-    "Businesses with a website earn up to 3x more inbound calls and bookings.",
-    "Google ranks businesses with active websites significantly higher in local search.",
-    "A simple website pays for itself within the first month of operation.",
+    { stat: "97%", text: "of consumers look up a local business online before visiting." },
+    { stat: "3×", text: "more inbound calls & bookings for businesses with a website." },
+    { stat: "↑", text: "Google ranks businesses with active sites significantly higher in local search." },
+    { stat: "1mo", text: "average payback period for a basic website investment." },
   ];
   return (
-    <section className="border-b hairline bg-surface-muted/30 py-24">
-      <div className="container-prose grid gap-12 md:grid-cols-2">
+    <section className="relative border-b hairline bg-surface/30 py-24 md:py-32">
+      <div aria-hidden className="absolute inset-0 dot-bg opacity-30" />
+      <div className="container-prose relative grid gap-12 md:grid-cols-2">
         <Reveal>
-          <div className="text-eyebrow">The opportunity</div>
-          <h2 className="text-display mt-4 text-4xl md:text-5xl">Why these businesses need a website — yesterday.</h2>
+          <div className="text-eyebrow">// The opening</div>
+          <h2 className="text-display mt-4 text-4xl md:text-6xl">
+            They need a site.
+            <br />
+            <span className="text-accent-lime">Yesterday.</span>
+          </h2>
           <p className="mt-6 max-w-md text-muted-foreground">
             Millions of restaurants and cafes are invisible online. They're
-            losing customers every single day to competitors with even a basic
-            web presence. That's your opening.
+            bleeding customers to competitors with even a basic web presence.
+            That's your shot.
           </p>
+          <div className="mt-8 inline-flex items-center gap-3 rounded-md border hairline bg-surface-elev px-4 py-2.5 font-mono text-[11px] uppercase tracking-widest text-muted-foreground">
+            <Radar className="size-3.5 text-accent-lime" />
+            Market signal · strong
+          </div>
         </Reveal>
-        <div className="space-y-4">
+        <div className="space-y-3">
           {items.map((t, i) => (
-            <Reveal key={t} delay={i * 0.06}>
-              <div className="flex items-start gap-3 rounded-xl border hairline bg-surface p-5 shadow-card transition-transform hover:-translate-y-0.5">
-                <TrendingUp className="mt-0.5 size-4 text-accent-emerald" />
-                <p className="text-[15px]">{t}</p>
+            <Reveal key={t.text} delay={i * 0.06}>
+              <div className="group flex items-start gap-5 rounded-lg border hairline bg-surface p-5 transition-all hover:border-accent-lime/40 hover:bg-surface-elev">
+                <div className="font-display text-2xl font-bold tabular-nums tracking-tight text-accent-lime md:text-3xl">
+                  {t.stat}
+                </div>
+                <p className="text-[15px] leading-relaxed">{t.text}</p>
               </div>
             </Reveal>
           ))}
@@ -299,26 +399,43 @@ function WhyWebsites() {
   );
 }
 
+/* -------------------- HOW IT WORKS -------------------- */
 function HowItWorks() {
   const steps = [
-    { n: "01", title: "Choose your market", desc: "Pick a city, country and the business types you want to target." },
-    { n: "02", title: "Run the scan", desc: "We query Google Places, filter out anyone with a website, and de-duplicate the results." },
-    { n: "03", title: "Review & export", desc: "Browse leads in a premium table, then export to CSV or Excel in one click." },
+    { n: "01", title: "Choose your market", desc: "Pick a city, country and the business types you want to target.", cmd: "$ clientmine target --city florence" },
+    { n: "02", title: "Run the scan", desc: "We query Google Places, filter out anyone with a website, de-duplicate.", cmd: "$ clientmine scan --filter no_website" },
+    { n: "03", title: "Review & export", desc: "Browse leads in a premium table, then export to CSV or Excel.", cmd: "$ clientmine export --format csv" },
   ];
   return (
     <section id="how" className="border-b hairline py-24 md:py-32">
       <div className="container-prose">
         <Reveal>
-          <div className="text-eyebrow">How it works</div>
-          <h2 className="text-display mt-4 max-w-2xl text-4xl md:text-5xl">Three steps from idea to outreach-ready list.</h2>
+          <div className="text-eyebrow">// Standard operating procedure</div>
+          <h2 className="text-display mt-4 max-w-2xl text-4xl md:text-6xl">
+            Three steps.
+            <br />
+            <span className="text-muted-foreground">Sixty seconds.</span>
+          </h2>
         </Reveal>
         <div className="mt-14 grid gap-6 md:grid-cols-3">
           {steps.map((s, i) => (
             <Reveal key={s.n} delay={i * 0.08}>
-              <div className="relative h-full rounded-2xl border hairline bg-surface p-7 shadow-card">
-                <div className="font-mono text-[11px] tracking-widest text-muted-foreground">{s.n}</div>
-                <h3 className="mt-4 text-lg font-semibold tracking-tight">{s.title}</h3>
+              <div className="group relative h-full overflow-hidden rounded-xl border hairline bg-surface p-7 transition-all hover:border-accent-lime/30 hover:shadow-lime">
+                <div className="flex items-baseline justify-between">
+                  <div className="font-display text-5xl font-bold tracking-tight text-accent-lime">
+                    {s.n}
+                  </div>
+                  <div className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground">
+                    STEP
+                  </div>
+                </div>
+                <h3 className="mt-6 text-xl font-semibold tracking-tight">{s.title}</h3>
                 <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{s.desc}</p>
+                <div className="mt-6 overflow-hidden rounded-md border hairline bg-background/60 px-3 py-2 font-mono text-[11px] text-muted-foreground">
+                  <span className="text-accent-lime">{s.cmd.split(" ")[0]}</span>
+                  {s.cmd.slice(s.cmd.indexOf(" "))}
+                  <span className="ml-0.5 inline-block h-3 w-1.5 translate-y-0.5 bg-accent-lime animate-blink" />
+                </div>
               </div>
             </Reveal>
           ))}
@@ -328,14 +445,15 @@ function HowItWorks() {
   );
 }
 
+/* -------------------- BENEFITS -------------------- */
 function Benefits() {
   return (
     <section className="border-b hairline py-24 md:py-32">
-      <div className="container-prose grid gap-10 md:grid-cols-2">
+      <div className="container-prose grid gap-6 md:grid-cols-2">
         <Reveal>
           <BenefitCard
             icon={Users}
-            badge="For freelancers"
+            badge="Freelancers"
             title="A pipeline that runs itself."
             points={[
               "Stop cold-emailing random businesses.",
@@ -348,7 +466,7 @@ function Benefits() {
         <Reveal delay={0.08}>
           <BenefitCard
             icon={Building2}
-            badge="For agencies"
+            badge="Agencies"
             title="Scale prospecting without scaling headcount."
             points={[
               "Spin up city-by-city campaigns in minutes.",
@@ -375,47 +493,58 @@ function BenefitCard({
   points: string[];
 }) {
   return (
-    <div className="group h-full rounded-2xl border hairline bg-surface p-8 shadow-card transition-shadow hover:shadow-card-lg">
-      <div className="inline-flex items-center gap-2 rounded-full border hairline bg-surface-muted px-2.5 py-1 text-[11px] uppercase tracking-widest text-muted-foreground">
-        <Icon className="size-3" /> {badge}
+    <div className="group relative h-full overflow-hidden rounded-xl border hairline bg-surface p-8 transition-all hover:border-accent-lime/30">
+      <div aria-hidden className="absolute inset-0 cross-bg opacity-20" />
+      <div className="relative">
+        <div className="inline-flex items-center gap-2 rounded-md border hairline bg-surface-elev px-2.5 py-1 font-mono text-[10px] uppercase tracking-widest text-accent-lime">
+          <Icon className="size-3" /> {badge}
+        </div>
+        <h3 className="text-display mt-6 text-3xl md:text-4xl">{title}</h3>
+        <ul className="mt-7 space-y-3.5">
+          {points.map((p) => (
+            <li key={p} className="flex items-start gap-3 text-[15px]">
+              <span className="mt-2 size-1.5 shrink-0 rounded-full bg-accent-lime" />
+              <span>{p}</span>
+            </li>
+          ))}
+        </ul>
       </div>
-      <h3 className="text-display mt-5 text-3xl">{title}</h3>
-      <ul className="mt-6 space-y-3">
-        {points.map((p) => (
-          <li key={p} className="flex items-start gap-2.5 text-[15px]">
-            <CheckCircle2 className="mt-0.5 size-4 shrink-0 text-accent-emerald" />
-            <span>{p}</span>
-          </li>
-        ))}
-      </ul>
     </div>
   );
 }
 
+/* -------------------- STATS -------------------- */
 function Stats() {
   const stats = [
-    { v: 36, suffix: "%", label: "of local restaurants worldwide still have no website." },
+    { v: 36, suffix: "%", label: "of local restaurants still have no website." },
     { v: 50, suffix: "M+", label: "small food businesses indexed by Google Places." },
-    { v: 3, suffix: "x", label: "more revenue from businesses with a basic web presence." },
+    { v: 3, suffix: "×", label: "more revenue from businesses with a web presence." },
     { v: 60, suffix: "s", label: "average time to generate your first 100 leads." },
   ];
   return (
-    <section id="stats" className="border-b hairline bg-foreground py-24 text-background md:py-32">
-      <div className="container-prose">
+    <section id="stats" className="relative overflow-hidden border-b hairline py-24 md:py-32">
+      <div aria-hidden className="absolute inset-0 blueprint-bg opacity-40" />
+      <div aria-hidden className="absolute inset-0 scanlines opacity-30" />
+      <div className="container-prose relative">
         <Reveal>
-          <div className="font-mono text-[11px] uppercase tracking-[0.18em] text-background/60">By the numbers</div>
-          <h2 className="text-display mt-4 max-w-2xl text-4xl text-background md:text-5xl">
-            A massive, underserved market hiding in plain sight.
+          <div className="text-eyebrow">// By the numbers</div>
+          <h2 className="text-display mt-4 max-w-3xl text-4xl md:text-6xl">
+            A massive, underserved market
+            <br />
+            <span className="text-muted-foreground">hiding in plain sight.</span>
           </h2>
         </Reveal>
-        <div className="mt-14 grid gap-px overflow-hidden rounded-2xl bg-background/10 md:grid-cols-2 lg:grid-cols-4">
+        <div className="mt-14 grid gap-px overflow-hidden rounded-xl border hairline bg-hairline md:grid-cols-2 lg:grid-cols-4">
           {stats.map((s, i) => (
             <Reveal key={s.label} delay={i * 0.06}>
-              <div className="h-full bg-foreground p-8">
-                <div className="text-display text-5xl text-background md:text-6xl">
+              <div className="group relative h-full bg-background p-8 transition-colors hover:bg-surface">
+                <div className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground">
+                  / {String(i + 1).padStart(2, "0")}
+                </div>
+                <div className="text-display mt-4 text-6xl font-bold tracking-tight text-foreground md:text-7xl">
                   <Counter to={s.v} suffix={s.suffix} />
                 </div>
-                <p className="mt-4 max-w-[24ch] text-sm leading-relaxed text-background/70">{s.label}</p>
+                <p className="mt-4 max-w-[24ch] text-sm leading-relaxed text-muted-foreground">{s.label}</p>
               </div>
             </Reveal>
           ))}
@@ -425,6 +554,7 @@ function Stats() {
   );
 }
 
+/* -------------------- FAQ -------------------- */
 function FAQ() {
   const qs = [
     { q: "Do I need to sign up to use ClientMine?", a: "No. ClientMine is fully usable without an account. Open the Lead Finder and start searching immediately." },
@@ -435,46 +565,94 @@ function FAQ() {
     { q: "Can I search any city in the world?", a: "Yes. ClientMine works globally — anywhere Google Places has coverage, which is virtually every populated area on Earth." },
   ];
   return (
-    <section id="faq" className="py-24 md:py-32">
+    <section id="faq" className="border-b hairline py-24 md:py-32">
       <div className="container-prose grid gap-12 md:grid-cols-[1fr_1.5fr]">
         <Reveal>
-          <div className="text-eyebrow">FAQ</div>
-          <h2 className="text-display mt-4 text-4xl md:text-5xl">Questions, answered.</h2>
-          <p className="mt-5 max-w-sm text-muted-foreground">
-            Everything you might want to know before you run your first search.
+          <div className="text-eyebrow">// FAQ</div>
+          <h2 className="text-display mt-4 text-4xl md:text-6xl">
+            Questions,
+            <br />
+            <span className="text-muted-foreground">answered.</span>
+          </h2>
+          <p className="mt-6 max-w-sm text-muted-foreground">
+            Everything you might want to know before you run your first scan.
           </p>
-          <div className="mt-8">
-            <Button asChild size="lg" className="h-12 px-6 shadow-card">
-              <Link to="/leads">
-                Start Finding Leads <ArrowRight />
-              </Link>
-            </Button>
-          </div>
         </Reveal>
         <div className="divide-y hairline border-y hairline">
           {qs.map((item, i) => (
             <Reveal key={item.q} delay={i * 0.04}>
               <details className="group py-5">
-                <summary className="flex cursor-pointer list-none items-center justify-between gap-6 text-left text-[16px] font-medium tracking-tight">
-                  <span>{item.q}</span>
-                  <Sparkles className="size-4 shrink-0 text-muted-foreground transition-transform group-open:rotate-90" />
+                <summary className="flex cursor-pointer list-none items-center justify-between gap-6 text-left text-[16px] font-medium tracking-tight transition-colors hover:text-accent-lime">
+                  <span className="flex items-start gap-3">
+                    <span className="mt-1 font-mono text-[11px] tracking-widest text-muted-foreground">
+                      {String(i + 1).padStart(2, "0")}
+                    </span>
+                    {item.q}
+                  </span>
+                  <span className="inline-flex size-7 shrink-0 items-center justify-center rounded-md border hairline bg-surface-elev font-mono text-sm text-muted-foreground transition-transform group-open:rotate-45">
+                    +
+                  </span>
                 </summary>
-                <p className="mt-3 max-w-2xl text-[15px] leading-relaxed text-muted-foreground">{item.a}</p>
+                <p className="ml-8 mt-3 max-w-2xl text-[15px] leading-relaxed text-muted-foreground">{item.a}</p>
               </details>
             </Reveal>
           ))}
-          <p className="pt-6 text-xs text-muted-foreground">
-            Built by{" "}
-            <a href="https://github.com/KrrishSR4" target="_blank" rel="noreferrer noopener" className="text-foreground hover:underline">
-              Krish Mishra
-            </a>
-            . Crafted with care.
-          </p>
         </div>
       </div>
     </section>
   );
 }
 
-// Avoid unused-symbol lint if the dashboard helper above changes.
-export const _icons = { Globe2 };
+/* -------------------- CTA -------------------- */
+function CTA() {
+  return (
+    <section className="relative overflow-hidden border-b hairline py-24 md:py-32">
+      <div aria-hidden className="absolute inset-0 blueprint-bg opacity-50" />
+      <div
+        aria-hidden
+        className="pointer-events-none absolute left-1/2 top-1/2 h-[420px] w-[420px] -translate-x-1/2 -translate-y-1/2 rounded-full blur-[120px] opacity-40 animate-drift-2"
+        style={{ background: "radial-gradient(circle, oklch(0.88 0.22 128 / 0.6), transparent 60%)" }}
+      />
+      <CornerTicks />
+      <div className="container-prose relative text-center">
+        <Reveal>
+          <div className="text-eyebrow">// Ready to deploy</div>
+          <h2 className="text-display mx-auto mt-6 max-w-3xl text-5xl md:text-7xl">
+            Stop pitching cold.
+            <br />
+            <span className="relative inline-block">
+              Start <span className="text-accent-lime">hunting</span>.
+              <span aria-hidden className="absolute -bottom-2 left-0 h-1 w-full bg-accent-lime/50" />
+            </span>
+          </h2>
+          <p className="mx-auto mt-7 max-w-xl text-[16px] leading-relaxed text-muted-foreground">
+            One tool, one tab, zero friction. Your next client is already on Google Maps —
+            ClientMine just makes them findable.
+          </p>
+          <div className="mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row">
+            <Button
+              asChild
+              size="lg"
+              className="group h-12 rounded-md bg-accent-lime px-7 font-mono text-[13px] font-semibold uppercase tracking-widest text-accent-lime-foreground shadow-lime hover:bg-accent-lime/90"
+            >
+              <Link to="/leads">
+                <Crosshair className="size-4" />
+                Launch ClientMine
+                <ArrowRight className="ml-0.5 transition-transform duration-300 group-hover:translate-x-0.5" />
+              </Link>
+            </Button>
+          </div>
+          <div className="mt-8 font-mono text-[11px] uppercase tracking-widest text-muted-foreground">
+            No signup · No credit card · Free forever
+          </div>
+        </Reveal>
+      </div>
+    </section>
+  );
+}
+
+function _TrendingPing() {
+  // kept for potential reuse to silence unused import lint
+  return <TrendingUp className="size-3" />;
+}
+export const _ping = _TrendingPing;
