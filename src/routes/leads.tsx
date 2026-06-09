@@ -162,12 +162,12 @@ function LeadFinder() {
               <Button
                 type="submit"
                 disabled={mutation.isPending}
-                className="group h-11 w-full px-5 shadow-card md:w-auto"
+                className="shine-btn group h-11 w-full px-5 shadow-card transition-transform duration-200 hover:-translate-y-px md:w-auto"
               >
                 {mutation.isPending ? (
                   <><Loader2 className="animate-spin" /> Searching</>
                 ) : (
-                  <><Search /> Generate Leads</>
+                  <><Search className="transition-transform duration-300 group-hover:scale-110" /> Generate Leads</>
                 )}
               </Button>
             </div>

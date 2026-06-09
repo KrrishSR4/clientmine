@@ -127,12 +127,12 @@ function Hero() {
             <Button
               asChild
               size="lg"
-              className="group h-12 rounded-md bg-accent-lime px-6 font-mono text-[13px] font-semibold uppercase tracking-widest text-accent-lime-foreground shadow-lime hover:bg-accent-lime/90"
+              className="shine-btn group h-12 rounded-md bg-accent-lime px-6 font-mono text-[13px] font-semibold uppercase tracking-widest text-accent-lime-foreground shadow-lime transition-transform duration-200 hover:-translate-y-px hover:bg-accent-lime"
             >
               <Link to="/leads">
-                <Crosshair className="size-4" />
+                <Crosshair className="size-4 transition-transform duration-300 group-hover:rotate-90" />
                 Start Hunting
-                <ArrowRight className="ml-0.5 transition-transform duration-300 group-hover:translate-x-0.5" />
+                <ArrowRight className="ml-0.5 transition-transform duration-300 group-hover:translate-x-1" />
               </Link>
             </Button>
             <a
@@ -333,16 +333,16 @@ function Features() {
         <div className="mt-14 grid gap-px overflow-hidden rounded-xl border hairline bg-hairline md:grid-cols-2 lg:grid-cols-3">
           {features.map((f, i) => (
             <Reveal key={f.title} delay={i * 0.05}>
-              <div className="group relative h-full bg-surface p-7 transition-colors hover:bg-surface-elev">
+              <div className="lift-card corner-accent group relative h-full bg-surface p-7 hover:bg-surface-elev">
                 <div className="flex items-center justify-between">
-                  <div className="inline-flex size-10 items-center justify-center rounded-md border hairline bg-background text-accent-lime transition-transform group-hover:-translate-y-0.5 group-hover:border-accent-lime/40">
+                  <div className="inline-flex size-10 items-center justify-center rounded-md border hairline bg-background text-accent-lime transition-all duration-300 group-hover:-translate-y-0.5 group-hover:rotate-[-6deg] group-hover:scale-110 group-hover:border-accent-lime/60 group-hover:shadow-lime">
                     <f.icon className="size-4" />
                   </div>
-                  <span className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground/60">
+                  <span className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground/60 transition-colors group-hover:text-accent-lime">
                     {f.n}
                   </span>
                 </div>
-                <h3 className="mt-5 text-[16px] font-semibold tracking-tight">{f.title}</h3>
+                <h3 className="mt-5 text-[16px] font-semibold tracking-tight transition-colors group-hover:text-accent-lime">{f.title}</h3>
                 <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{f.desc}</p>
               </div>
             </Reveal>
@@ -420,9 +420,9 @@ function HowItWorks() {
         <div className="mt-14 grid gap-6 md:grid-cols-3">
           {steps.map((s, i) => (
             <Reveal key={s.n} delay={i * 0.08}>
-              <div className="group relative h-full overflow-hidden rounded-xl border hairline bg-surface p-7 transition-all hover:border-accent-lime/30 hover:shadow-lime">
+              <div className="lift-card corner-accent group relative h-full overflow-hidden rounded-xl border hairline bg-surface p-7 hover:border-accent-lime/40">
                 <div className="flex items-baseline justify-between">
-                  <div className="font-display text-5xl font-bold tracking-tight text-accent-lime">
+                  <div className="text-display text-5xl font-bold tracking-tight text-accent-lime transition-transform duration-300 group-hover:-translate-y-1">
                     {s.n}
                   </div>
                   <div className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground">
@@ -431,7 +431,7 @@ function HowItWorks() {
                 </div>
                 <h3 className="mt-6 text-xl font-semibold tracking-tight">{s.title}</h3>
                 <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{s.desc}</p>
-                <div className="mt-6 overflow-hidden rounded-md border hairline bg-background/60 px-3 py-2 font-mono text-[11px] text-muted-foreground">
+                <div className="mt-6 overflow-hidden rounded-md border hairline bg-background/60 px-3 py-2 font-mono text-[11px] text-muted-foreground transition-colors group-hover:border-accent-lime/30">
                   <span className="text-accent-lime">{s.cmd.split(" ")[0]}</span>
                   {s.cmd.slice(s.cmd.indexOf(" "))}
                   <span className="ml-0.5 inline-block h-3 w-1.5 translate-y-0.5 bg-accent-lime animate-blink" />
@@ -493,7 +493,7 @@ function BenefitCard({
   points: string[];
 }) {
   return (
-    <div className="group relative h-full overflow-hidden rounded-xl border hairline bg-surface p-8 transition-all hover:border-accent-lime/30">
+    <div className="lift-card group relative h-full overflow-hidden rounded-xl border hairline bg-surface p-8 hover:border-accent-lime/40">
       <div aria-hidden className="absolute inset-0 cross-bg opacity-20" />
       <div className="relative">
         <div className="inline-flex items-center gap-2 rounded-md border hairline bg-surface-elev px-2.5 py-1 font-mono text-[10px] uppercase tracking-widest text-accent-lime">
@@ -633,12 +633,12 @@ function CTA() {
             <Button
               asChild
               size="lg"
-              className="group h-12 rounded-md bg-accent-lime px-7 font-mono text-[13px] font-semibold uppercase tracking-widest text-accent-lime-foreground shadow-lime hover:bg-accent-lime/90"
+              className="shine-btn group h-12 rounded-md bg-accent-lime px-7 font-mono text-[13px] font-semibold uppercase tracking-widest text-accent-lime-foreground shadow-lime transition-transform duration-200 hover:-translate-y-px hover:bg-accent-lime"
             >
               <Link to="/leads">
-                <Crosshair className="size-4" />
+                <Crosshair className="size-4 transition-transform duration-300 group-hover:rotate-90" />
                 Launch ClientsMine
-                <ArrowRight className="ml-0.5 transition-transform duration-300 group-hover:translate-x-0.5" />
+                <ArrowRight className="ml-0.5 transition-transform duration-300 group-hover:translate-x-1" />
               </Link>
             </Button>
           </div>
