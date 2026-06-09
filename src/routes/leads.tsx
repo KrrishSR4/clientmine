@@ -40,13 +40,13 @@ import { MessageDialog } from "@/components/leads/MessageDialog";
 export const Route = createFileRoute("/leads")({
   head: () => ({
     meta: [
-      { title: "Lead Finder — ClientMine" },
+      { title: "Lead Finder — ClientsMine" },
       {
         name: "description",
         content:
           "Search restaurants and cafes with no website by city. Export verified leads to CSV or Excel in seconds. No signup required.",
       },
-      { property: "og:title", content: "Lead Finder — ClientMine" },
+      { property: "og:title", content: "Lead Finder — ClientsMine" },
       { property: "og:description", content: "Find local businesses with no website. Export to CSV or Excel instantly." },
       { property: "og:url", content: "/leads" },
     ],
@@ -162,12 +162,12 @@ function LeadFinder() {
               <Button
                 type="submit"
                 disabled={mutation.isPending}
-                className="group h-11 w-full px-5 shadow-card md:w-auto"
+                className="shine-btn group h-11 w-full px-5 shadow-card transition-transform duration-200 hover:-translate-y-px md:w-auto"
               >
                 {mutation.isPending ? (
                   <><Loader2 className="animate-spin" /> Searching</>
                 ) : (
-                  <><Search /> Generate Leads</>
+                  <><Search className="transition-transform duration-300 group-hover:scale-110" /> Generate Leads</>
                 )}
               </Button>
             </div>

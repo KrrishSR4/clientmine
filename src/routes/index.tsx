@@ -27,14 +27,14 @@ import { Button } from "@/components/ui/button";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "ClientMine — Hunt restaurants & cafes with no website" },
+      { title: "ClientsMine — Hunt restaurants & cafes with no website" },
       {
         name: "description",
         content:
-          "ClientMine is a tactical lead-finder for freelance web devs. Scan any city, surface businesses missing a website, export verified leads in 60 seconds.",
+          "ClientsMine is a tactical lead-finder for freelance web devs. Scan any city, surface businesses missing a website, export verified leads in 60 seconds.",
       },
       { name: "keywords", content: "freelance web design leads, restaurants without website, cafe leads, local business leads, lead generation for freelancers" },
-      { property: "og:title", content: "ClientMine — Lead-finder for freelance web devs" },
+      { property: "og:title", content: "ClientsMine — Lead-finder for freelance web devs" },
       { property: "og:description", content: "Tactical prospecting tool. Scan, filter, export. Zero noise." },
       { property: "og:url", content: "/" },
     ],
@@ -45,7 +45,7 @@ export const Route = createFileRoute("/")({
         children: JSON.stringify({
           "@context": "https://schema.org",
           "@type": "SoftwareApplication",
-          name: "ClientMine",
+          name: "ClientsMine",
           applicationCategory: "BusinessApplication",
           operatingSystem: "Web",
           offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
@@ -118,7 +118,7 @@ function Hero() {
           </h1>
 
           <p className="mx-auto mt-8 max-w-[36rem] text-pretty text-[16px] leading-[1.65] text-muted-foreground sm:text-[18px]">
-            ClientMine is a tactical lead-finder for freelance devs. Scan any city,
+            ClientsMine is a tactical lead-finder for freelance devs. Scan any city,
             surface restaurants & cafes <span className="text-foreground">still missing a website</span>,
             export clean data. Zero noise. Zero fabricated emails.
           </p>
@@ -127,12 +127,12 @@ function Hero() {
             <Button
               asChild
               size="lg"
-              className="group h-12 rounded-md bg-accent-lime px-6 font-mono text-[13px] font-semibold uppercase tracking-widest text-accent-lime-foreground shadow-lime hover:bg-accent-lime/90"
+              className="shine-btn group h-12 rounded-md bg-accent-lime px-6 font-mono text-[13px] font-semibold uppercase tracking-widest text-accent-lime-foreground shadow-lime transition-transform duration-200 hover:-translate-y-px hover:bg-accent-lime"
             >
               <Link to="/leads">
-                <Crosshair className="size-4" />
+                <Crosshair className="size-4 transition-transform duration-300 group-hover:rotate-90" />
                 Start Hunting
-                <ArrowRight className="ml-0.5 transition-transform duration-300 group-hover:translate-x-0.5" />
+                <ArrowRight className="ml-0.5 transition-transform duration-300 group-hover:translate-x-1" />
               </Link>
             </Button>
             <a
@@ -166,7 +166,7 @@ function Hero() {
                 <span className="size-2.5 rounded-full bg-foreground/15" />
               </div>
               <span className="font-mono text-[11px] tracking-wider text-muted-foreground">
-                clientmine.app/leads
+                clientsmine.app/leads
               </span>
               <span className="inline-flex items-center gap-1.5 font-mono text-[10px] uppercase tracking-widest text-accent-lime">
                 <span className="size-1.5 rounded-full bg-accent-lime pulse-dot" />
@@ -333,16 +333,16 @@ function Features() {
         <div className="mt-14 grid gap-px overflow-hidden rounded-xl border hairline bg-hairline md:grid-cols-2 lg:grid-cols-3">
           {features.map((f, i) => (
             <Reveal key={f.title} delay={i * 0.05}>
-              <div className="group relative h-full bg-surface p-7 transition-colors hover:bg-surface-elev">
+              <div className="lift-card corner-accent group relative h-full bg-surface p-7 hover:bg-surface-elev">
                 <div className="flex items-center justify-between">
-                  <div className="inline-flex size-10 items-center justify-center rounded-md border hairline bg-background text-accent-lime transition-transform group-hover:-translate-y-0.5 group-hover:border-accent-lime/40">
+                  <div className="inline-flex size-10 items-center justify-center rounded-md border hairline bg-background text-accent-lime transition-all duration-300 group-hover:-translate-y-0.5 group-hover:rotate-[-6deg] group-hover:scale-110 group-hover:border-accent-lime/60 group-hover:shadow-lime">
                     <f.icon className="size-4" />
                   </div>
-                  <span className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground/60">
+                  <span className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground/60 transition-colors group-hover:text-accent-lime">
                     {f.n}
                   </span>
                 </div>
-                <h3 className="mt-5 text-[16px] font-semibold tracking-tight">{f.title}</h3>
+                <h3 className="mt-5 text-[16px] font-semibold tracking-tight transition-colors group-hover:text-accent-lime">{f.title}</h3>
                 <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{f.desc}</p>
               </div>
             </Reveal>
@@ -402,9 +402,9 @@ function WhyWebsites() {
 /* -------------------- HOW IT WORKS -------------------- */
 function HowItWorks() {
   const steps = [
-    { n: "01", title: "Choose your market", desc: "Pick a city, country and the business types you want to target.", cmd: "$ clientmine target --city florence" },
-    { n: "02", title: "Run the scan", desc: "We query Google Places, filter out anyone with a website, de-duplicate.", cmd: "$ clientmine scan --filter no_website" },
-    { n: "03", title: "Review & export", desc: "Browse leads in a premium table, then export to CSV or Excel.", cmd: "$ clientmine export --format csv" },
+    { n: "01", title: "Choose your market", desc: "Pick a city, country and the business types you want to target.", cmd: "$ clientsmine target --city florence" },
+    { n: "02", title: "Run the scan", desc: "We query Google Places, filter out anyone with a website, de-duplicate.", cmd: "$ clientsmine scan --filter no_website" },
+    { n: "03", title: "Review & export", desc: "Browse leads in a premium table, then export to CSV or Excel.", cmd: "$ clientsmine export --format csv" },
   ];
   return (
     <section id="how" className="border-b hairline py-24 md:py-32">
@@ -420,9 +420,9 @@ function HowItWorks() {
         <div className="mt-14 grid gap-6 md:grid-cols-3">
           {steps.map((s, i) => (
             <Reveal key={s.n} delay={i * 0.08}>
-              <div className="group relative h-full overflow-hidden rounded-xl border hairline bg-surface p-7 transition-all hover:border-accent-lime/30 hover:shadow-lime">
+              <div className="lift-card corner-accent group relative h-full overflow-hidden rounded-xl border hairline bg-surface p-7 hover:border-accent-lime/40">
                 <div className="flex items-baseline justify-between">
-                  <div className="font-display text-5xl font-bold tracking-tight text-accent-lime">
+                  <div className="text-display text-5xl font-bold tracking-tight text-accent-lime transition-transform duration-300 group-hover:-translate-y-1">
                     {s.n}
                   </div>
                   <div className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground">
@@ -431,7 +431,7 @@ function HowItWorks() {
                 </div>
                 <h3 className="mt-6 text-xl font-semibold tracking-tight">{s.title}</h3>
                 <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{s.desc}</p>
-                <div className="mt-6 overflow-hidden rounded-md border hairline bg-background/60 px-3 py-2 font-mono text-[11px] text-muted-foreground">
+                <div className="mt-6 overflow-hidden rounded-md border hairline bg-background/60 px-3 py-2 font-mono text-[11px] text-muted-foreground transition-colors group-hover:border-accent-lime/30">
                   <span className="text-accent-lime">{s.cmd.split(" ")[0]}</span>
                   {s.cmd.slice(s.cmd.indexOf(" "))}
                   <span className="ml-0.5 inline-block h-3 w-1.5 translate-y-0.5 bg-accent-lime animate-blink" />
@@ -493,7 +493,7 @@ function BenefitCard({
   points: string[];
 }) {
   return (
-    <div className="group relative h-full overflow-hidden rounded-xl border hairline bg-surface p-8 transition-all hover:border-accent-lime/30">
+    <div className="lift-card group relative h-full overflow-hidden rounded-xl border hairline bg-surface p-8 hover:border-accent-lime/40">
       <div aria-hidden className="absolute inset-0 cross-bg opacity-20" />
       <div className="relative">
         <div className="inline-flex items-center gap-2 rounded-md border hairline bg-surface-elev px-2.5 py-1 font-mono text-[10px] uppercase tracking-widest text-accent-lime">
@@ -557,12 +557,12 @@ function Stats() {
 /* -------------------- FAQ -------------------- */
 function FAQ() {
   const qs = [
-    { q: "Do I need to sign up to use ClientMine?", a: "No. ClientMine is fully usable without an account. Open the Lead Finder and start searching immediately." },
+    { q: "Do I need to sign up to use ClientsMine?", a: "No. ClientsMine is fully usable without an account. Open the Lead Finder and start searching immediately." },
     { q: "Where does the data come from?", a: "All business data is sourced live from the Google Places API — names, addresses, phone numbers, ratings, and Maps links." },
     { q: "Do you provide email addresses?", a: "If a verified public business email is available, we include it. We never fabricate emails. If we can't find one, we display 'No Public Email Found'." },
     { q: "What can I export?", a: "Every result table can be exported as a CSV or Excel (.xlsx) file, named by city and date — ready to drop into any CRM or outreach tool." },
     { q: "Is this legal to use for outreach?", a: "Yes. We only return publicly listed business information. Always follow local outreach and anti-spam regulations when you contact businesses." },
-    { q: "Can I search any city in the world?", a: "Yes. ClientMine works globally — anywhere Google Places has coverage, which is virtually every populated area on Earth." },
+    { q: "Can I search any city in the world?", a: "Yes. ClientsMine works globally — anywhere Google Places has coverage, which is virtually every populated area on Earth." },
   ];
   return (
     <section id="faq" className="border-b hairline py-24 md:py-32">
@@ -627,18 +627,18 @@ function CTA() {
           </h2>
           <p className="mx-auto mt-7 max-w-xl text-[16px] leading-relaxed text-muted-foreground">
             One tool, one tab, zero friction. Your next client is already on Google Maps —
-            ClientMine just makes them findable.
+            ClientsMine just makes them findable.
           </p>
           <div className="mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row">
             <Button
               asChild
               size="lg"
-              className="group h-12 rounded-md bg-accent-lime px-7 font-mono text-[13px] font-semibold uppercase tracking-widest text-accent-lime-foreground shadow-lime hover:bg-accent-lime/90"
+              className="shine-btn group h-12 rounded-md bg-accent-lime px-7 font-mono text-[13px] font-semibold uppercase tracking-widest text-accent-lime-foreground shadow-lime transition-transform duration-200 hover:-translate-y-px hover:bg-accent-lime"
             >
               <Link to="/leads">
-                <Crosshair className="size-4" />
-                Launch ClientMine
-                <ArrowRight className="ml-0.5 transition-transform duration-300 group-hover:translate-x-0.5" />
+                <Crosshair className="size-4 transition-transform duration-300 group-hover:rotate-90" />
+                Launch ClientsMine
+                <ArrowRight className="ml-0.5 transition-transform duration-300 group-hover:translate-x-1" />
               </Link>
             </Button>
           </div>
