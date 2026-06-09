@@ -5,19 +5,22 @@ export function SiteFooter() {
     <footer className="relative overflow-hidden border-t hairline bg-background">
       <div aria-hidden className="absolute inset-0 cross-bg opacity-40" />
       <div aria-hidden className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-accent-lime/60 to-transparent" />
+
+      {/* Oversized brand wordmark */}
+      <div aria-hidden className="pointer-events-none absolute inset-x-0 -bottom-6 flex justify-center overflow-hidden md:-bottom-10">
+        <span className="select-none font-display text-[18vw] font-bold leading-none tracking-[-0.06em] text-foreground/[0.04] md:text-[14vw]">
+          Clients<span className="italic">Mine</span>
+        </span>
+      </div>
+
       <div className="container-prose relative grid gap-12 py-16 md:grid-cols-12">
         <div className="md:col-span-5">
-          <div className="flex items-center gap-2">
-            <span className="relative inline-flex size-8 items-center justify-center overflow-hidden rounded-md border hairline bg-surface-elev">
-              <span aria-hidden className="absolute inset-0 blueprint-bg opacity-70" />
-              <span className="relative font-display text-[15px] font-bold tracking-tight">
-                C<span className="text-accent-lime">M</span>
-              </span>
+          <Link to="/" className="group inline-flex items-baseline gap-2 leading-none">
+            <span className="font-display text-[22px] font-bold tracking-[-0.05em] text-foreground">
+              Clients<span className="italic font-semibold text-accent-lime">Mine</span>
             </span>
-            <span className="font-display text-[17px] font-semibold tracking-tight">
-              Client<span className="text-accent-lime">Mine</span>
-            </span>
-          </div>
+            <span aria-hidden className="ml-0.5 size-1.5 self-center rounded-full bg-accent-lime pulse-dot" />
+          </Link>
           <p className="mt-5 max-w-sm text-sm leading-relaxed text-muted-foreground">
             The unfair advantage for freelancers shipping web work this week.
             Built solo, runs lean, exports clean.
