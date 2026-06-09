@@ -27,14 +27,14 @@ import { Button } from "@/components/ui/button";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "ClientMine — Hunt restaurants & cafes with no website" },
+      { title: "ClientsMine — Hunt restaurants & cafes with no website" },
       {
         name: "description",
         content:
-          "ClientMine is a tactical lead-finder for freelance web devs. Scan any city, surface businesses missing a website, export verified leads in 60 seconds.",
+          "ClientsMine is a tactical lead-finder for freelance web devs. Scan any city, surface businesses missing a website, export verified leads in 60 seconds.",
       },
       { name: "keywords", content: "freelance web design leads, restaurants without website, cafe leads, local business leads, lead generation for freelancers" },
-      { property: "og:title", content: "ClientMine — Lead-finder for freelance web devs" },
+      { property: "og:title", content: "ClientsMine — Lead-finder for freelance web devs" },
       { property: "og:description", content: "Tactical prospecting tool. Scan, filter, export. Zero noise." },
       { property: "og:url", content: "/" },
     ],
@@ -45,7 +45,7 @@ export const Route = createFileRoute("/")({
         children: JSON.stringify({
           "@context": "https://schema.org",
           "@type": "SoftwareApplication",
-          name: "ClientMine",
+          name: "ClientsMine",
           applicationCategory: "BusinessApplication",
           operatingSystem: "Web",
           offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
@@ -118,7 +118,7 @@ function Hero() {
           </h1>
 
           <p className="mx-auto mt-8 max-w-[36rem] text-pretty text-[16px] leading-[1.65] text-muted-foreground sm:text-[18px]">
-            ClientMine is a tactical lead-finder for freelance devs. Scan any city,
+            ClientsMine is a tactical lead-finder for freelance devs. Scan any city,
             surface restaurants & cafes <span className="text-foreground">still missing a website</span>,
             export clean data. Zero noise. Zero fabricated emails.
           </p>
@@ -166,7 +166,7 @@ function Hero() {
                 <span className="size-2.5 rounded-full bg-foreground/15" />
               </div>
               <span className="font-mono text-[11px] tracking-wider text-muted-foreground">
-                clientmine.app/leads
+                clientsmine.app/leads
               </span>
               <span className="inline-flex items-center gap-1.5 font-mono text-[10px] uppercase tracking-widest text-accent-lime">
                 <span className="size-1.5 rounded-full bg-accent-lime pulse-dot" />
@@ -402,9 +402,9 @@ function WhyWebsites() {
 /* -------------------- HOW IT WORKS -------------------- */
 function HowItWorks() {
   const steps = [
-    { n: "01", title: "Choose your market", desc: "Pick a city, country and the business types you want to target.", cmd: "$ clientmine target --city florence" },
-    { n: "02", title: "Run the scan", desc: "We query Google Places, filter out anyone with a website, de-duplicate.", cmd: "$ clientmine scan --filter no_website" },
-    { n: "03", title: "Review & export", desc: "Browse leads in a premium table, then export to CSV or Excel.", cmd: "$ clientmine export --format csv" },
+    { n: "01", title: "Choose your market", desc: "Pick a city, country and the business types you want to target.", cmd: "$ clientsmine target --city florence" },
+    { n: "02", title: "Run the scan", desc: "We query Google Places, filter out anyone with a website, de-duplicate.", cmd: "$ clientsmine scan --filter no_website" },
+    { n: "03", title: "Review & export", desc: "Browse leads in a premium table, then export to CSV or Excel.", cmd: "$ clientsmine export --format csv" },
   ];
   return (
     <section id="how" className="border-b hairline py-24 md:py-32">
@@ -557,12 +557,12 @@ function Stats() {
 /* -------------------- FAQ -------------------- */
 function FAQ() {
   const qs = [
-    { q: "Do I need to sign up to use ClientMine?", a: "No. ClientMine is fully usable without an account. Open the Lead Finder and start searching immediately." },
+    { q: "Do I need to sign up to use ClientsMine?", a: "No. ClientsMine is fully usable without an account. Open the Lead Finder and start searching immediately." },
     { q: "Where does the data come from?", a: "All business data is sourced live from the Google Places API — names, addresses, phone numbers, ratings, and Maps links." },
     { q: "Do you provide email addresses?", a: "If a verified public business email is available, we include it. We never fabricate emails. If we can't find one, we display 'No Public Email Found'." },
     { q: "What can I export?", a: "Every result table can be exported as a CSV or Excel (.xlsx) file, named by city and date — ready to drop into any CRM or outreach tool." },
     { q: "Is this legal to use for outreach?", a: "Yes. We only return publicly listed business information. Always follow local outreach and anti-spam regulations when you contact businesses." },
-    { q: "Can I search any city in the world?", a: "Yes. ClientMine works globally — anywhere Google Places has coverage, which is virtually every populated area on Earth." },
+    { q: "Can I search any city in the world?", a: "Yes. ClientsMine works globally — anywhere Google Places has coverage, which is virtually every populated area on Earth." },
   ];
   return (
     <section id="faq" className="border-b hairline py-24 md:py-32">
@@ -627,7 +627,7 @@ function CTA() {
           </h2>
           <p className="mx-auto mt-7 max-w-xl text-[16px] leading-relaxed text-muted-foreground">
             One tool, one tab, zero friction. Your next client is already on Google Maps —
-            ClientMine just makes them findable.
+            ClientsMine just makes them findable.
           </p>
           <div className="mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row">
             <Button
@@ -637,7 +637,7 @@ function CTA() {
             >
               <Link to="/leads">
                 <Crosshair className="size-4" />
-                Launch ClientMine
+                Launch ClientsMine
                 <ArrowRight className="ml-0.5 transition-transform duration-300 group-hover:translate-x-0.5" />
               </Link>
             </Button>

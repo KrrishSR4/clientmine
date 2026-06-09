@@ -40,13 +40,13 @@ import { MessageDialog } from "@/components/leads/MessageDialog";
 export const Route = createFileRoute("/leads")({
   head: () => ({
     meta: [
-      { title: "Lead Finder — ClientMine" },
+      { title: "Lead Finder — ClientsMine" },
       {
         name: "description",
         content:
           "Search restaurants and cafes with no website by city. Export verified leads to CSV or Excel in seconds. No signup required.",
       },
-      { property: "og:title", content: "Lead Finder — ClientMine" },
+      { property: "og:title", content: "Lead Finder — ClientsMine" },
       { property: "og:description", content: "Find local businesses with no website. Export to CSV or Excel instantly." },
       { property: "og:url", content: "/leads" },
     ],

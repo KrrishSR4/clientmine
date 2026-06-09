@@ -55,7 +55,7 @@ export function SiteFooter() {
       </div>
       <div className="relative border-t hairline">
         <div className="container-prose flex flex-col items-start justify-between gap-2 py-5 font-mono text-[11px] uppercase tracking-widest text-muted-foreground md:flex-row md:items-center">
-          <span>© {new Date().getFullYear()} ClientMine · All rights reserved</span>
+          <span>© {new Date().getFullYear()} ClientsMine · All rights reserved</span>
           <span>
             Shipped with caffeine by{" "}
             <a href="https://github.com/KrrishSR4" target="_blank" rel="noreferrer noopener" className="text-foreground hover:text-accent-lime">
