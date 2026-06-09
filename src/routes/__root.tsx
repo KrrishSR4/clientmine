@@ -90,8 +90,8 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { name: "description", content: "ClientsMine helps freelancers, agencies, and web professionals discover restaurants and cafes that lack a website. Search any city worldwide, uncover businesses" },
       { property: "og:description", content: "ClientsMine helps freelancers, agencies, and web professionals discover restaurants and cafes that lack a website. Search any city worldwide, uncover businesses" },
       { name: "twitter:description", content: "ClientsMine helps freelancers, agencies, and web professionals discover restaurants and cafes that lack a website. Search any city worldwide, uncover businesses" },
-      { property: "og:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/attachments/og-images/b43e22a8-4c92-4376-8d4c-ba145e74e86a" },
-      { name: "twitter:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/attachments/og-images/b43e22a8-4c92-4376-8d4c-ba145e74e86a" },
+      { property: "og:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/attachments/og-images/7e27811f-12f9-449f-bf2d-4a071e81715b" },
+      { name: "twitter:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/attachments/og-images/7e27811f-12f9-449f-bf2d-4a071e81715b" },
     ],
     links: [
       {
