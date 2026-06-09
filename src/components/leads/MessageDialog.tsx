@@ -1,5 +1,5 @@
 import { useMemo, useState } from "react";
-import { Copy, Check, Sparkles, MessageSquare } from "lucide-react";
+import { Copy, Check, Sparkles, MessageSquare, Languages } from "lucide-react";
 import {
   Dialog,
   DialogContent,
@@ -13,58 +13,96 @@ import { toast } from "sonner";
 import type { Lead } from "@/lib/leads.functions";
 
 type Tone = "friendly" | "professional" | "value" | "short";
+type Lang = "en" | "hi";
 
-function firstName(name: string) {
-  // Strip common business suffixes / pick a clean handle
-  const clean = name
-    .replace(/\b(restaurant|cafe|café|bistro|trattoria|pizzeria|ristorante|bar|kitchen|grill|coffee|the)\b/gi, "")
-    .replace(/\s+/g, " ")
-    .trim();
-  return clean || name;
+function kindOf(lead: Lead) {
+  return /caf|coffee/i.test(lead.category + " " + lead.name) ? "cafe" : "restaurant";
 }
 
 function buildMessages(lead: Lead) {
   const name = lead.name;
-  const handle = firstName(name);
-  const cityHint = lead.address?.split(",").slice(-2, -1)[0]?.trim() || "your area";
-  const kind = /caf|coffee/i.test(lead.category + " " + name) ? "cafe" : "restaurant";
+  const kind = kindOf(lead);
+  const kindPl = kind + "s";
 
-  return {
-    friendly: `Hi ${handle} team,
+  const en: Record<Tone, string> = {
+    friendly: `Hi,
 
-I came across ${name} on Google and noticed you don't have a website yet — your reviews look amazing and you clearly have loyal customers in ${cityHint}.
+I was checking out ${name} online and noticed you don't have a website yet.
 
-I design clean, fast websites for ${kind}s like yours that bring in more bookings and online orders. Would you be open to a quick chat this week?
+I create simple and modern websites for ${kindPl} that help customers find all the information in one place — menu, hours, location and bookings.
 
-Best regards,`,
+Can I share a sample idea for your business?
 
-    professional: `Hello ${name},
+Thanks,`,
 
-I help ${kind}s establish a strong online presence with modern, mobile-friendly websites that rank on Google and convert visitors into customers.
+    professional: `Hello ${name} team,
 
-While reviewing top-rated venues in ${cityHint}, I noticed ${name} does not currently have a website. I would be glad to share a short proposal tailored to your business.
+I help ${kindPl} build a clean and modern online presence with simple, mobile-friendly websites that are easy for customers to use.
 
-Looking forward to your response.
+While looking at top ${kindPl} in your area, I noticed you don't have a website yet. I would be happy to share a short proposal made for your business.
 
-Best regards,`,
-
-    value: `Hi ${handle},
-
-Quick note — ${name} has a fantastic reputation${lead.rating ? ` (${lead.rating.toFixed(1)}★ on Google)` : ""}, but customers searching online in ${cityHint} can't find your menu, hours, or a way to book directly.
-
-A simple, beautifully designed website typically helps ${kind}s:
-• Capture 3× more inbound calls and reservations
-• Rank higher in local Google searches
-• Reduce dependence on delivery apps
-
-I'd love to show you a free mockup. Open to it?
+Looking forward to your reply.
 
 Best regards,`,
 
-    short: `Hi ${handle} — loved what I saw about ${name}. Noticed you don't have a website yet. I build modern sites for ${kind}s that drive more bookings. Worth a 10-min chat?
+    value: `Hi,
+
+${name} has a great reputation${lead.rating ? ` (${lead.rating.toFixed(1)}★ on Google)` : ""}, but people searching online can't easily find your menu, timings or a way to book.
+
+A simple website usually helps ${kindPl} like yours to:
+• Get more calls and bookings
+• Show up higher on Google in your area
+• Depend less on delivery apps
+
+I can send you a free sample design. Would you like to see it?
+
+Thanks,`,
+
+    short: `Hi — I saw ${name} online and noticed you don't have a website yet. I build simple, modern websites for ${kindPl}. Can I share a quick sample idea?
+
+Thanks,`,
+  };
+
+  const hi: Record<Tone, string> = {
+    friendly: `Hi,
+
+Maine ${name} ko online dekha aur notice kiya ki abhi aapki website nahi hai.
+
+Main ${kindPl} ke liye simple aur modern websites banata hoon, jisme customers ko menu, timings, location aur booking — sab kuch ek hi jagah mil jaata hai.
+
+Kya main aapke business ke liye ek sample idea share kar sakta hoon?
+
+Thanks,`,
+
+    professional: `Hello ${name} team,
+
+Main ${kindPl} ko ek clean aur modern online presence banane me help karta hoon — simple, mobile-friendly websites jo customers easily use kar sakein.
+
+Aapke area ke top ${kindPl} dekhte waqt notice kiya ki abhi aapki website nahi hai. Main khushi se aapke business ke liye ek short proposal share kar sakta hoon.
+
+Aapke reply ka wait rahega.
 
 Best regards,`,
-  } as Record<Tone, string>;
+
+    value: `Hi,
+
+${name} ki reputation kaafi acchi hai${lead.rating ? ` (${lead.rating.toFixed(1)}★ Google par)` : ""}, lekin online search karne wale logon ko aapka menu, timings ya booking ka option easily nahi milta.
+
+Ek simple si website aam taur par ${kindPl} ki ye help karti hai:
+• Zyada calls aur bookings aati hain
+• Aapke area me Google par upar dikhte ho
+• Delivery apps par dependency kam hoti hai
+
+Main aapko ek free sample design bhej sakta hoon. Dekhna chahenge?
+
+Thanks,`,
+
+    short: `Hi — ${name} ko online dekha, notice kiya abhi website nahi hai. Main ${kindPl} ke liye simple, modern websites banata hoon. Ek quick sample idea share karun?
+
+Thanks,`,
+  };
+
+  return { en, hi };
 }
 
 export function MessageDialog({
@@ -76,16 +114,20 @@ export function MessageDialog({
   open: boolean;
   onOpenChange: (v: boolean) => void;
 }) {
-  const [copied, setCopied] = useState<Tone | null>(null);
+  const [copied, setCopied] = useState<string | null>(null);
+  const [lang, setLang] = useState<Lang>("en");
   const messages = useMemo(() => (lead ? buildMessages(lead) : null), [lead]);
 
   if (!lead || !messages) return null;
 
+  const active = messages[lang];
+
   const copy = async (tone: Tone) => {
+    const key = `${lang}:${tone}`;
     try {
-      await navigator.clipboard.writeText(messages[tone]);
-      setCopied(tone);
-      toast.success("Message copied to clipboard");
+      await navigator.clipboard.writeText(active[tone]);
+      setCopied(key);
+      toast.success(lang === "hi" ? "Hinglish message copied" : "Message copied to clipboard");
       setTimeout(() => setCopied(null), 1600);
     } catch {
       toast.error("Couldn't copy. Select and copy manually.");
@@ -97,6 +139,11 @@ export function MessageDialog({
     { id: "professional", label: "Professional" },
     { id: "value", label: "Value-driven" },
     { id: "short", label: "Short" },
+  ];
+
+  const langs: { id: Lang; label: string; hint: string }[] = [
+    { id: "en", label: "English", hint: "EN" },
+    { id: "hi", label: "Hinglish", hint: "HI" },
   ];
 
   return (
@@ -111,11 +158,35 @@ export function MessageDialog({
             Message for {lead.name}
           </DialogTitle>
           <DialogDescription className="text-xs">
-            Personalized templates — pick a tone, copy, and send.
+            Pick a tone and language, then copy &amp; send.
           </DialogDescription>
         </DialogHeader>
 
-        <div className="p-6">
+        <div className="space-y-4 p-6">
+          {/* Language toggle */}
+          <div className="flex items-center justify-between gap-3">
+            <div className="inline-flex items-center gap-1.5 font-mono text-[11px] uppercase tracking-widest text-muted-foreground">
+              <Languages className="size-3" />
+              Language
+            </div>
+            <div className="inline-flex rounded-md border hairline bg-surface-muted/60 p-0.5">
+              {langs.map((l) => (
+                <button
+                  key={l.id}
+                  type="button"
+                  onClick={() => setLang(l.id)}
+                  className={`rounded-[5px] px-3 py-1.5 font-mono text-[11px] uppercase tracking-widest transition-colors ${
+                    lang === l.id
+                      ? "bg-accent-lime text-accent-lime-foreground"
+                      : "text-muted-foreground hover:text-foreground"
+                  }`}
+                >
+                  {l.label}
+                </button>
+              ))}
+            </div>
+          </div>
+
           <Tabs defaultValue="friendly">
             <TabsList className="grid w-full grid-cols-4">
               {tabs.map((t) => (
@@ -124,28 +195,32 @@ export function MessageDialog({
                 </TabsTrigger>
               ))}
             </TabsList>
-            {tabs.map((t) => (
-              <TabsContent key={t.id} value={t.id} className="mt-4">
-                <div className="rounded-xl border hairline bg-surface-muted/60 p-4">
-                  <pre className="whitespace-pre-wrap font-sans text-[13.5px] leading-relaxed text-foreground">
-                    {messages[t.id]}
-                  </pre>
-                </div>
-                <div className="mt-4 flex items-center justify-between">
-                  <div className="inline-flex items-center gap-1.5 text-[11px] text-muted-foreground">
-                    <MessageSquare className="size-3" />
-                    {messages[t.id].length} characters
+            {tabs.map((t) => {
+              const key = `${lang}:${t.id}`;
+              const body = active[t.id];
+              return (
+                <TabsContent key={t.id} value={t.id} className="mt-4">
+                  <div className="rounded-xl border hairline bg-surface-muted/60 p-4">
+                    <pre className="whitespace-pre-wrap font-sans text-[13.5px] leading-relaxed text-foreground">
+                      {body}
+                    </pre>
                   </div>
-                  <Button onClick={() => copy(t.id)} size="sm" className="h-9">
-                    {copied === t.id ? (
-                      <><Check /> Copied</>
-                    ) : (
-                      <><Copy /> Copy message</>
-                    )}
-                  </Button>
-                </div>
-              </TabsContent>
-            ))}
+                  <div className="mt-4 flex items-center justify-between">
+                    <div className="inline-flex items-center gap-1.5 text-[11px] text-muted-foreground">
+                      <MessageSquare className="size-3" />
+                      {body.length} characters · {lang === "hi" ? "Hinglish" : "English"}
+                    </div>
+                    <Button onClick={() => copy(t.id)} size="sm" className="h-9">
+                      {copied === key ? (
+                        <><Check /> Copied</>
+                      ) : (
+                        <><Copy /> Copy message</>
+                      )}
+                    </Button>
+                  </div>
+                </TabsContent>
+              );
+            })}
           </Tabs>
         </div>
       </DialogContent>
