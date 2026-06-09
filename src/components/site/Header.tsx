@@ -4,23 +4,14 @@ import { ArrowUpRight } from "lucide-react";
 
 function Logo() {
   return (
-    <Link to="/" className="group flex items-center gap-2.5">
-      {/* Monogram mark */}
-      <span className="relative inline-flex size-8 items-center justify-center overflow-hidden rounded-md border hairline bg-surface-elev">
-        <span aria-hidden className="absolute inset-0 blueprint-bg opacity-70" />
-        <span className="relative font-display text-[15px] font-bold tracking-tight text-foreground">
-          C<span className="text-accent-lime">M</span>
-        </span>
-        <span aria-hidden className="absolute -right-0.5 -top-0.5 size-1.5 rounded-full bg-accent-lime pulse-dot" />
+    <Link to="/" className="group flex items-baseline gap-2 leading-none">
+      <span className="font-display text-[22px] font-bold tracking-[-0.045em] text-foreground">
+        Client<span className="italic font-medium text-accent-lime">Mine</span>
       </span>
-      <span className="flex items-baseline gap-1.5 leading-none">
-        <span className="font-display text-[17px] font-semibold tracking-tight text-foreground">
-          Client<span className="text-accent-lime">Mine</span>
-        </span>
-        <span className="hidden font-mono text-[10px] tracking-widest text-muted-foreground/70 sm:inline">
-          /v1
-        </span>
+      <span className="hidden font-mono text-[10px] tracking-[0.22em] text-muted-foreground/60 sm:inline">
+        /v1
       </span>
+      <span aria-hidden className="ml-0.5 size-1.5 self-center rounded-full bg-accent-lime pulse-dot" />
     </Link>
   );
 }
